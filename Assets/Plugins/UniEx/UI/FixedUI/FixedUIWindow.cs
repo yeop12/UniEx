@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace UniEx.UI
 {
@@ -9,18 +10,22 @@ namespace UniEx.UI
 	public abstract class FixedUIWindow : UIElement
 	{
 		[SerializeField] private RenderMode _renderMode;
+
+		[Inject] protected FixedUIManager UIManager { get; private set; }
+
 		protected object ModelObject { get; private set; }
 
+		public Canvas Canvas { get; private set; }
 		public bool IsOpened { get; private set; }
 		public event Action OnClosed;
 
 		protected virtual void Awake()
 		{
-			var canvas = GetComponent<Canvas>();
+			Canvas = GetComponent<Canvas>();
 			if (_renderMode != RenderMode.ScreenSpaceOverlay)
 			{
-				canvas.worldCamera = Camera.main;
-				canvas.planeDistance = 10.0f;
+				Canvas.worldCamera = Camera.main;
+				Canvas.planeDistance = 10.0f;
 			}
 		}
 

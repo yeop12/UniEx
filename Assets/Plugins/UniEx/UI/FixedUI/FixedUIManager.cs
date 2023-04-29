@@ -10,6 +10,7 @@ namespace UniEx.UI
 {
 	public sealed class FixedUIManager : MonoBehaviour
 	{
+		private int _canvasOrder = 0;
 		private readonly Dictionary<Type, FixedUIWindow> _uiWindows = new();
 		private readonly Dictionary<Type, CancellationTokenSource> _loadingUiWindows = new();
 		
@@ -79,6 +80,11 @@ namespace UniEx.UI
 			catch (Exception e)
 			{
 				Debug.LogError(e);
+			}
+
+			if (fixedUIWindow is not null)
+			{
+				fixedUIWindow.Canvas.sortingOrder = _canvasOrder++;
 			}
 
 			return fixedUIWindow as T;
