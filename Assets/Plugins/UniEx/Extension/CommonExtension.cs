@@ -18,5 +18,20 @@ namespace UniEx
 		{
 			return $"{money:#,0}";
 		}
+
+		public static string ToMoneyFormat(this uint money)
+		{
+			return $"{money:#,0}";
+		}
+
+		public static string ToMoneyFormat(this long money)
+		{
+			return $"{money:#,0}";
+		}
+
+		public static string ToMoneyFormat(this ulong money)
+		{
+			return $"{money:#,0}";
+		}
 	}
 }
