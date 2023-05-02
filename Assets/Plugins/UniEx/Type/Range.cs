@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace UniEx
 {
+	[Serializable]
 	public struct Range
 	{
 		public float Min;
