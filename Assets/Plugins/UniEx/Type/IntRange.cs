@@ -10,7 +10,7 @@ namespace UniEx
 		public int Min;
 		public int Max;
 
-		public float RandomValue => Random.Range(Min, Max);
+		public int RandomValue => Random.Range(Min, Max);
 
 		public IntRange( int min, int max )
 		{
