@@ -17,6 +17,7 @@ namespace UniEx
 		public int MaxY => Y + Height - 1;
 		public Vector2Int Position => new(X, Y);
 		public Vector2Int Size => new(Width, Height);
+		public Vector2 Center => Position + (Vector2)Size / 2.0f;
 
 		public IntRect(int x, int y, int width, int height)
 		{
