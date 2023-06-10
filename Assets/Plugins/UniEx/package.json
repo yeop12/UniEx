@@ -1,6 +1,6 @@
 {
   "name": "com.nybot.uniex",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "displayName": "UniEx",
   "description": "Provides utilities such as UI and AssetPool for use in Unity.",
   "unity": "2019.1",
