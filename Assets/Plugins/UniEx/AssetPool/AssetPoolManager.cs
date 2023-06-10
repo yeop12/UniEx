@@ -20,7 +20,7 @@ namespace UniEx
 			_cachedTransform = transform;
 		}
 
-		private T GetPoolObject<T>(string path, Action<T> onPreprocessing) where T : PoolObject
+		private T GetPoolObject<T>(string path, Action<T> onPreprocessing, object modelObject) where T : PoolObject
 		{
 			if (_poolObjectsByPath.TryGetValue(path, out var poolObjects))
 			{
@@ -31,7 +31,7 @@ namespace UniEx
 					if (result is not null)
 					{
 						onPreprocessing?.Invoke(result);
-						result.OnGet();
+						result.OnGet(modelObject);
 						poolObjects.RemoveAt(poolObjects.Count - 1);
 					}
 					else
@@ -59,55 +59,55 @@ namespace UniEx
 			var newPoolObject = _container.InstantiatePrefabForComponent<T>(prefab, _cachedTransform);
 			newPoolObject.OnReturn += x => OnReturnPoolObject(path, x);
 			onPreprocessing?.Invoke(newPoolObject);
-			newPoolObject.OnGet();
+			newPoolObject.OnGet(modelObject);
 			return newPoolObject;
 		}
 
-		public void Get(string path)
+		public void Get(string path, object modelObject = default)
 		{
-			GetPoolObject<PoolObject>(path, null);
+			GetPoolObject<PoolObject>(path, null, modelObject);
 		}
 
-		public T Get<T>(string path) where T : PoolObject
+		public T Get<T>(string path, object modelObject = default) where T : PoolObject
 		{
-			return GetPoolObject<T>(path, null);
+			return GetPoolObject<T>(path, null, modelObject);
 		}
 
-		public T Get<T>(string path, Vector3 position) where T : PoolObject
+		public T Get<T>(string path, Vector3 position, object modelObject = default) where T : PoolObject
 		{
 			return GetPoolObject<T>(path, x =>
 			{
 				x.CachedTransform.position = position;
-			});
+			}, modelObject);
 		}
 
-		public T Get<T>(string path, Vector3 position, Quaternion rotation) where T : PoolObject
+		public T Get<T>(string path, Vector3 position, Quaternion rotation, object modelObject = default) where T : PoolObject
 		{
 			return GetPoolObject<T>(path, x =>
 			{
 				x.CachedTransform.SetPositionAndRotation(position, rotation);
-			});
+			}, modelObject);
 		}
 
-		public T Get<T>(string path, Transform parent, Vector3 position) where T : PoolObject
+		public T Get<T>(string path, Transform parent, Vector3 position, object modelObject = default) where T : PoolObject
 		{
 			return GetPoolObject<T>(path, x =>
 			{
 				x.CachedTransform.SetParent(parent);
 				x.CachedTransform.position = position;
-			});
+			}, modelObject);
 		}
 
-		public T Get<T>(string path, Transform parent, Vector3 position, Quaternion rotation) where T : PoolObject
+		public T Get<T>(string path, Transform parent, Vector3 position, Quaternion rotation, object modelObject = default) where T : PoolObject
 		{
 			return GetPoolObject<T>(path, x => 
 			{
 				x.CachedTransform.SetParent(parent);
 				x.CachedTransform.SetPositionAndRotation(position, rotation);
-			});
+			}, modelObject);
 		}
 
-		private void OnReturnPoolObject(string path ,PoolObject poolObject)
+		private void OnReturnPoolObject(string path, PoolObject poolObject)
 		{
 			if (_poolObjectsByPath.TryGetValue(path, out var poolObjects) is false)
 			{

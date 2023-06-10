@@ -10,13 +10,13 @@ namespace UniEx
 		public Transform CachedTransform { get; private set; }
 
 		public event Action<PoolObject> OnReturn;
-
+		                        
 		protected virtual void Awake()
 		{
 			CachedTransform = transform;
 		}
 		
-		protected internal virtual void OnGet()
+		protected internal virtual void OnGet(object modelObject)
 		{
 			gameObject.SetActive(true);
 		}
