@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -29,12 +27,11 @@ namespace UniEx.UI
 			}
 		}
 
-		public virtual UniTask OpenAsync(object modelObject, CancellationToken ct)
+		public virtual void Open(object modelObject)
 		{
 			gameObject.SetActive(true);
 			ModelObject = modelObject;
 			IsOpened = true;
-			return UniTask.CompletedTask;
 		}
 
 		public virtual void Close(bool force = false)

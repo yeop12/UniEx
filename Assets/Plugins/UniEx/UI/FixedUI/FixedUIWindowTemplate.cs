@@ -1,20 +1,20 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
-
 namespace UniEx.UI
 {
 	public abstract class FixedUIWindowTemplate<T> : FixedUIWindow
 	{
 		protected T Model { get; private set; }
 
-		public sealed override async UniTask OpenAsync(object modelObject, CancellationToken ct)
+		public sealed override void Open(object modelObject)
 		{
-			await base.OpenAsync(modelObject, ct);
+			base.Open(modelObject);
 			Model = (T)modelObject;
-			await OnOpen(Model, ct);
+			OnOpen(Model);
 			InvokeBind();
 		}
 
-		protected virtual UniTask OnOpen(T model, CancellationToken ct) => UniTask.CompletedTask;
+		protected virtual void OnOpen(T model)
+		{
+
+		}
 	}
 }

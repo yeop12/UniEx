@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -23,18 +21,18 @@ namespace UniEx.UI
 			_rectTransform = GetComponent<RectTransform>();
 		}
 
-		public virtual UniTask OpenAsync(object modelObject, Transform targetTransform, CancellationToken ct)
+		public virtual void Open(object modelObject, Transform targetTransform)
 		{
 			if (IsOpened)
 			{
 				Debug.LogError($"Hud object is already opened.(Name : {name})");
-				return UniTask.CompletedTask;
+				return;
 			}
 
 			_targetTransform = targetTransform;
 			gameObject.SetActive(true);
 			IsOpened = true;
-			return UniTask.CompletedTask;
+			return;
 		}
 
 		public virtual void Close(bool force = false)

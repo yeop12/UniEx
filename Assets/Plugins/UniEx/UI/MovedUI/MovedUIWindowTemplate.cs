@@ -1,5 +1,3 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace UniEx.UI
@@ -8,14 +6,17 @@ namespace UniEx.UI
 	{
 		protected T Model { get; private set; }
 
-		public sealed override async UniTask OpenAsync(object modelObject, Transform target, CancellationToken ct)
+		public sealed override void Open(object modelObject, Transform target)
 		{
-			await base.OpenAsync(modelObject, target, ct);
+			base.Open(modelObject, target);
 			Model = (T)modelObject;
-			await OnInit(Model, ct);
+			OnInit(Model);
 			InvokeBind();
 		}
 
-		protected virtual UniTask OnInit(T model, CancellationToken ct) => UniTask.CompletedTask;
+		protected virtual void OnInit(T model)
+		{
+
+		}
 	}
 }
