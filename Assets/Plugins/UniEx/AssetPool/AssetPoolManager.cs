@@ -94,7 +94,7 @@ namespace UniEx
 			return GetPoolObject<T>(path, x =>
 			{
 				x.CachedTransform.SetParent(parent);
-				x.CachedTransform.position = position;
+				x.CachedTransform.localPosition = position;
 			}, modelObject);
 		}
 
@@ -103,7 +103,8 @@ namespace UniEx
 			return GetPoolObject<T>(path, x => 
 			{
 				x.CachedTransform.SetParent(parent);
-				x.CachedTransform.SetPositionAndRotation(position, rotation);
+				x.CachedTransform.localPosition = position;
+				x.CachedTransform.localRotation = rotation;
 			}, modelObject);
 		}
 
