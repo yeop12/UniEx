@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using UniEx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.U2D;
 using Object = UnityEngine.Object;
 
-namespace Panteria
+namespace UniEx
 {
 	public class AtlasManager
 	{
