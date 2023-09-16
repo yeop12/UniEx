@@ -6,7 +6,7 @@ using UniRx;
 
 namespace UniEx
 {
-	public class ReadOnlyReactiveCollectionWrapper<T> : IReadOnlyReactiveCollection<object>
+	public class ReadOnlyReactiveCollectionWrapper<T> : IGridReactiveCollection
 	{
 		private readonly IReadOnlyReactiveCollection<T> _reactiveCollection;
 
@@ -19,25 +19,12 @@ namespace UniEx
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		public IObservable<CollectionAddEvent<object>> ObserveAdd() => _reactiveCollection.ObserveAdd()
-			.Select(x => new CollectionAddEvent<object>(x.Index, x.Value));
-
-		public IObservable<int> ObserveCountChanged(bool notifyCurrentCount = false) =>
-			_reactiveCollection.ObserveCountChanged();
-
-		public IObservable<CollectionMoveEvent<object>> ObserveMove() => _reactiveCollection.ObserveMove()
-			.Select(x => new CollectionMoveEvent<object>(x.OldIndex, x.NewIndex, x.Value));
-
-		public IObservable<CollectionRemoveEvent<object>> ObserveRemove() => _reactiveCollection.ObserveRemove()
-			.Select(x => new CollectionRemoveEvent<object>(x.Index, x.Value));
-
-		public IObservable<CollectionReplaceEvent<object>> ObserveReplace() => _reactiveCollection.ObserveReplace()
-			.Select(x => new CollectionReplaceEvent<object>(x.Index, x.OldValue, x.NewValue));
-
+		public IObservable<object> ObserveAdd() => _reactiveCollection.ObserveAdd()
+			.Select(x => x.Value as object);
+		
+		public IObservable<object> ObserveRemove() => _reactiveCollection.ObserveRemove()
+			.Select(x => x.Value as object);
+		
 		public IObservable<Unit> ObserveReset() => _reactiveCollection.ObserveReset();
-
-		public int Count => _reactiveCollection.Count;
-
-		public object this[int index] => _reactiveCollection[index];
 	}
 }

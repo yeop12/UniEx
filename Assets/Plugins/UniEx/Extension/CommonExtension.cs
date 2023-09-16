@@ -33,5 +33,8 @@ namespace UniEx
 		{
 			return $"{money:#,0}";
 		}
+
+		public static IGridReactiveCollection Where<T>(this IGridReactiveCollection reactiveCollection,
+			Predicate<T> predicate) => new WhereGridReactiveCollection<T>(reactiveCollection, predicate);
 	}
 }

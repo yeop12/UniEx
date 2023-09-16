@@ -42,11 +42,11 @@ namespace UniEx.UI
 			var gridInfos = _gridInfosProperty.GetValue(_uiElement);
 			switch (gridInfos)
 			{
-				case IReadOnlyReactiveCollection<object> reactiveCollection:
-					_observers.Add(reactiveCollection.ObserveAdd().Subscribe(OnAddModel));
-					_observers.Add(reactiveCollection.ObserveRemove().Subscribe(OnRemoveModel));
-					_observers.Add(reactiveCollection.ObserveReset().Subscribe(OnResetModels));
-					_grid.Init(reactiveCollection);
+				case IGridReactiveCollection gridReactiveCollection:
+					_observers.Add(gridReactiveCollection.ObserveAdd().Subscribe(OnAddModel));
+					_observers.Add(gridReactiveCollection.ObserveRemove().Subscribe(OnRemoveModel));
+					_observers.Add(gridReactiveCollection.ObserveReset().Subscribe(OnResetModels));
+					_grid.Init(gridReactiveCollection);
 					break;
 
 				case IEnumerable<object> list:
@@ -65,14 +65,14 @@ namespace UniEx.UI
 			_observers.Clear();
 		}
 
-		private void OnAddModel(CollectionAddEvent<object> info)
+		private void OnAddModel(object value)
 		{
-			_grid.AddModel(info.Value);
+			_grid.AddModel(value);
 		}
 
-		private void OnRemoveModel(CollectionRemoveEvent<object> info)
+		private void OnRemoveModel( object value )
 		{
-			_grid.RemoveModel(info.Value);
+			_grid.RemoveModel(value);
 		}
 
 		private void OnResetModels(Unit unit)
