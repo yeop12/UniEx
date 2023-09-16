@@ -36,5 +36,9 @@ namespace UniEx
 
 		public static IGridReactiveCollection Where<T>(this IGridReactiveCollection reactiveCollection,
 			Predicate<T> predicate) => new WhereGridReactiveCollection<T>(reactiveCollection, predicate);
+
+		public static IGridReactiveCollection Select<TInput, TOutput>(this IGridReactiveCollection reactiveCollection,
+			Func<TInput, TOutput> selector) =>
+			new SelectGridReactiveCollection<TInput, TOutput>(reactiveCollection, selector);
 	}
 }
