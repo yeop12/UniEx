@@ -79,5 +79,28 @@ namespace UniEx.UI
 		{
 			_grid.Clear();
 		}
+
+		public void Rebind(UIElement uiElement, string parameterName)
+		{
+			if (_uiElement is not null)
+			{
+				_uiElement.OnBind -= OnBind;
+				_uiElement.OnUnbind -= OnUnbind;
+				OnUnbind();
+			}
+
+			_uiElement = uiElement;
+			_paramterName = parameterName;
+
+			var propertyInfo = _uiElement.GetType().GetProperty(_paramterName);
+			if (propertyInfo is null) {
+				Debug.LogError($"{_uiElement.name} does not contain '{_paramterName}' variable.");
+				return;
+			}
+
+			_gridInfosProperty = propertyInfo;
+			_uiElement.OnUnbind += OnUnbind;
+			OnBind();
+		}
 	}
 }
