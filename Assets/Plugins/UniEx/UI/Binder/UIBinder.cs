@@ -39,7 +39,7 @@ namespace UniEx.UI
 			var propertyInfo = _uiElement.GetType().GetProperty(parameterName);
 			if (propertyInfo is null)
 			{
-				Debug.LogError($"{_uiElement.name} does not contain '{parameterName}' variable.");
+				Debug.LogError($"{_uiElement.name} does not contain '{parameterName}' variable.(Object name : {name})");
 				return;
 			}
 
@@ -59,7 +59,7 @@ namespace UniEx.UI
 						break;
 
 					default:
-						Debug.LogError($"Parameter's type must be '{typeof(T).Name}' or 'IObservable<{typeof(T).Name}>'.");
+						Debug.LogError($"Parameter's type must be '{typeof(T).Name}' or 'IObservable<{typeof(T).Name}>'.(Object name : {name}, Parameter name : {parameterName})");
 						break;
 				}
 			}
