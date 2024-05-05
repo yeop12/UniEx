@@ -48,6 +48,12 @@ namespace UniEx.UI
 			void OnBind()
 			{
 				var value = propertyInfo.GetValue(_uiElement);
+				if (value is null)
+				{
+					Debug.LogError($"{name} object's parameter target is null.(Parameter name : {parameterName})");
+					return;
+				}
+
 				switch (value)
 				{
 					case T rawValue:
