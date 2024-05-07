@@ -10,7 +10,7 @@ namespace UniEx.UI
 	public class GridBinder : MonoBehaviour
 	{
 		[SerializeField] private UIElement _uiElement;
-		[SerializeField] private string _paramterName;
+		[SerializeField] private string _parameterName;
 
 		private FixedGrid _grid;
 		private PropertyInfo _gridInfosProperty;
@@ -25,10 +25,10 @@ namespace UniEx.UI
 				return;
 			}
 
-			var propertyInfo = _uiElement.GetType().GetProperty(_paramterName);
+			var propertyInfo = _uiElement.GetType().GetProperty(_parameterName);
 			if (propertyInfo is null)
 			{
-				Debug.LogError($"{_uiElement.name} does not contain '{_paramterName}' variable.");
+				Debug.LogError($"{_uiElement.name} does not contain '{_parameterName}' variable.");
 				return;
 			}
 
@@ -54,7 +54,7 @@ namespace UniEx.UI
 					break;
 
 				default:
-					Debug.LogError($"Parameter's type must be '{typeof(IReadOnlyReactiveProperty<>).Name}' or '{typeof(IEnumerable<object>).Name}'.(UIElement name : {_uiElement.name}, Name : {name}, Parameter name : {_paramterName})");
+					Debug.LogError($"Parameter's type must be '{typeof(IReadOnlyReactiveProperty<>).Name}' or '{typeof(IEnumerable<object>).Name}'.(UIElement name : {_uiElement.name}, Name : {name}, Parameter name : {_parameterName})");
 					break;
 			}
 		}
@@ -90,11 +90,11 @@ namespace UniEx.UI
 			}
 
 			_uiElement = uiElement;
-			_paramterName = parameterName;
+			_parameterName = parameterName;
 
-			var propertyInfo = _uiElement.GetType().GetProperty(_paramterName);
+			var propertyInfo = _uiElement.GetType().GetProperty(_parameterName);
 			if (propertyInfo is null) {
-				Debug.LogError($"{_uiElement.name} does not contain '{_paramterName}' variable.");
+				Debug.LogError($"{_uiElement.name} does not contain '{_parameterName}' variable.");
 				return;
 			}
 
