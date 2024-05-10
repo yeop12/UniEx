@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -10,11 +11,26 @@ namespace UniEx.UI
 {
 	public sealed class FixedUIManager : MonoBehaviour
 	{
-		private int _canvasOrder = 0;
+		[SerializeField] private FixedUISetting _setting;
+		
+		private Dictionary<string, int> _canvasOrderByLayerName;
 		private readonly Dictionary<Type, FixedUIWindow> _uiWindows = new();
 		private readonly Dictionary<Type, CancellationTokenSource> _loadingUiWindows = new();
 		
 		[Inject] private DiContainer _container;
+
+		private void Awake()
+		{
+			if (_setting.LayerNames.Any())
+			{
+				_canvasOrderByLayerName = _setting.LayerNames.Select((x, index) => (name, index))
+					.ToDictionary(x => x.name, x => x.index * 1000000);
+			}
+			else
+			{
+				_canvasOrderByLayerName = new Dictionary<string, int> { { "Default", 0 } };
+			}
+		}
 
 		public async UniTask LoadAsync<T>(CancellationToken ct) where T : FixedUIWindow
 		{
@@ -53,7 +69,7 @@ namespace UniEx.UI
 			}
 		}
 		
-		public async UniTask<T> OpenAsync<T>(object modelObject) where T : FixedUIWindow
+		public async UniTask<T> OpenAsync<T>(object modelObject, string layerName = "Default") where T : FixedUIWindow
 		{
 			var type = typeof(T);
 			if (_loadingUiWindows.TryGetValue(type, out var cts))
@@ -121,13 +137,14 @@ namespace UniEx.UI
 
 			if (fixedUIWindow is not null)
 			{
-				fixedUIWindow.Canvas.sortingOrder = _canvasOrder++;
+				fixedUIWindow.Canvas.sortingOrder = _canvasOrderByLayerName[layerName];
+				++_canvasOrderByLayerName[layerName];
 			}
 
 			return fixedUIWindow as T;
 		}
 
-		public T Open<T>(object modelObject) where T : FixedUIWindow
+		public T Open<T>(object modelObject, string layerName = "Default") where T : FixedUIWindow
 		{
 			var type = typeof(T);
 			if (_loadingUiWindows.TryGetValue(type, out var cts))
@@ -181,7 +198,8 @@ namespace UniEx.UI
 
 			if (fixedUIWindow is not null)
 			{
-				fixedUIWindow.Canvas.sortingOrder = _canvasOrder++;
+				fixedUIWindow.Canvas.sortingOrder = _canvasOrderByLayerName[layerName];
+				++_canvasOrderByLayerName[layerName];
 			}
 
 			return fixedUIWindow as T;
