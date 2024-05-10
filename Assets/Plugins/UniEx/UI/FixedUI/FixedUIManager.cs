@@ -23,8 +23,8 @@ namespace UniEx.UI
 		{
 			if (_setting.LayerNames.Any())
 			{
-				_canvasOrderByLayerName = _setting.LayerNames.Select((x, index) => (name, index))
-					.ToDictionary(x => x.name, x => x.index * 1000000);
+				_canvasOrderByLayerName = _setting.LayerNames.Select((layerName, index) => (layerName, index))
+					.ToDictionary(x => x.layerName, x => x.index * 1000000);
 			}
 			else
 			{
