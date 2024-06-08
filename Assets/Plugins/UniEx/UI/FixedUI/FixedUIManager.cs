@@ -221,5 +221,10 @@ namespace UniEx.UI
 				Debug.LogError($"{type.Name} does not loaded.");
 			}
 		}
+
+		public bool IsOpened<T>()
+		{
+			return _uiWindows.TryGetValue(typeof(T), out var fixedUIWindow) && fixedUIWindow.IsOpened;
+		}
 	}
 }
