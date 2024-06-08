@@ -21,7 +21,7 @@ namespace UniEx.UI
 
 		private void Awake()
 		{
-			if (_setting.LayerNames.Any())
+			if (_setting?.LayerNames.Any() ?? false)
 			{
 				_canvasOrderByLayerName = _setting.LayerNames.Select((layerName, index) => (layerName, index))
 					.ToDictionary(x => x.layerName, x => x.index * 1000000);
