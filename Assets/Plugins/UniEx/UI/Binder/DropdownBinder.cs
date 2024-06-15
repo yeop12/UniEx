@@ -14,9 +14,9 @@ namespace UniEx.UI
 		protected override void Awake()
 		{
 			base.Awake();
+			AddParameter<List<TMP_Dropdown.OptionData>>(_optionsParameterName, x => UIComponent.options = x);
 			AddParameter<int>(_valueParameterName, x => UIComponent.value = x);
 			AddParameter<int>(_valueWithoutNotifyParameterName, x => UIComponent.SetValueWithoutNotify(x));
-			AddParameter<List<TMP_Dropdown.OptionData>>(_optionsParameterName, x => UIComponent.options = x);
 		}
 	}
 }
