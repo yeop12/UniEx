@@ -1,0 +1,18 @@
+{
+    "name": "UniEx.UI.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:20dbead4090a5df4791b80d441ae743f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
