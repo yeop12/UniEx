@@ -4,8 +4,8 @@ namespace UniEx.UI
 {
 	public class RectTransformBinder : UIBinder<RectTransform>
 	{
-		[SerializeField] private string _anchoredPositionParameterName;
-		[SerializeField] private string _sizeDeltaParameterName;
+		[BinderType(typeof(Vector2))] [SerializeField] private string _anchoredPositionParameterName;
+		[BinderType(typeof(Vector2))] [SerializeField] private string _sizeDeltaParameterName;
 
 		protected override void Awake()
 		{

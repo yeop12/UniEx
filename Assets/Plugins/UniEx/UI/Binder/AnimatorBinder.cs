@@ -5,10 +5,10 @@ namespace UniEx.UI
 	[RequireComponent(typeof(Animator))]
     public class AnimatorBinder : UIBinder<Animator>
     {
-	    [SerializeField] private string _boolParameterName;
-	    [SerializeField] private string _intParameterName;
-	    [SerializeField] private string _floatParameterName;
-	    [SerializeField] private string _triggerParameterName;
+	    [BinderType(typeof((string, bool)))] [SerializeField] private string _boolParameterName;
+		[BinderType(typeof((string, int)))] [SerializeField] private string _intParameterName;
+		[BinderType(typeof((string, float)))] [SerializeField] private string _floatParameterName;
+		[BinderType(typeof(string))] [SerializeField] private string _triggerParameterName;
 		
 		protected override void Awake()
 		{

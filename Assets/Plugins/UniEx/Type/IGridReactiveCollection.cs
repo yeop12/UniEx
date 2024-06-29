@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UniRx;
 
 namespace UniEx
 {
-    public interface IGridReactiveCollection : IEnumerable<object>
+    public interface IGridReactiveCollection : IEnumerable
     {
 	    IObservable<object> ObserveAdd();
         IObservable<object> ObserveRemove();

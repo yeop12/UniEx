@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 
 namespace UniEx
@@ -15,10 +13,6 @@ namespace UniEx
 			_reactiveCollection = reactiveCollection;
 		}
 
-		public IEnumerator<object> GetEnumerator() => _reactiveCollection.Cast<object>().GetEnumerator();
-
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
 		public IObservable<object> ObserveAdd() => _reactiveCollection.ObserveAdd()
 			.Select(x => x.Value as object);
 		
@@ -26,5 +20,7 @@ namespace UniEx
 			.Select(x => x.Value as object);
 		
 		public IObservable<Unit> ObserveReset() => _reactiveCollection.ObserveReset();
+
+		public IEnumerator GetEnumerator() => _reactiveCollection.GetEnumerator();
 	}
 }

@@ -5,7 +5,7 @@ namespace UniEx.UI
 {
 	public abstract class SelectableBinder<T> : UIBinder<T> where T : Selectable
 	{
-		[SerializeField] protected string _interactableParameterName;
+		[BinderType(typeof(bool))] [SerializeField] protected string _interactableParameterName;
 		
 		protected override void Awake()
 		{

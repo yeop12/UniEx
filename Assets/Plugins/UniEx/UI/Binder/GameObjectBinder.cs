@@ -6,7 +6,7 @@ namespace UniEx.UI
 	{
 		[SerializeField] private GameObject _target;
 		[SerializeField] private bool _useInverseValue;
-		[SerializeField] private string _activationParameterName;
+		[BinderType(typeof(bool))] [SerializeField] private string _activationParameterName;
 
 		protected override void Awake()
 		{

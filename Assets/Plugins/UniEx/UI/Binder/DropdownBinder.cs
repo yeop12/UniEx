@@ -7,9 +7,9 @@ namespace UniEx.UI
 	[RequireComponent(typeof(TMP_Dropdown))]
 	public class DropdownBinder : SelectableBinder<TMP_Dropdown>
 	{
-		[SerializeField] private string _valueParameterName;
-		[SerializeField] private string _valueWithoutNotifyParameterName;
-		[SerializeField] private string _optionsParameterName;
+		[BinderType(typeof(List<TMP_Dropdown.OptionData>))] [SerializeField] private string _valueParameterName;
+		[BinderType(typeof(int))] [SerializeField] private string _valueWithoutNotifyParameterName;
+		[BinderType(typeof(int))] [SerializeField] private string _optionsParameterName;
 
 		protected override void Awake()
 		{

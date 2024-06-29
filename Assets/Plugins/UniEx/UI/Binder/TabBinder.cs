@@ -5,7 +5,7 @@ namespace UniEx.UI
 	[RequireComponent(typeof(Tab))]
 	public class TabBinder : UIBinder<Tab>
 	{
-		[SerializeField] private string _modelParameterName;
+		[BinderType(typeof(object))] [SerializeField] private string _modelParameterName;
 
 		protected override void Awake()
 		{

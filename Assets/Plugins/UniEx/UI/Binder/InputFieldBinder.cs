@@ -4,9 +4,9 @@ using UnityEngine;
 namespace UniEx.UI
 {
 	[RequireComponent(typeof(TMP_InputField))]
-	public class InputFieldBinder : UIBinder<TMP_InputField>
+	public class InputFieldBinder : SelectableBinder<TMP_InputField>
 	{
-		[SerializeField] private string _textParameterName;
+		[BinderType(typeof(string))] [SerializeField] private string _textParameterName;
 
 		protected override void Awake()
 		{

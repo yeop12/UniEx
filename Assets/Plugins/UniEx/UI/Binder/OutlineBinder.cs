@@ -6,8 +6,8 @@ namespace UniEx.UI
 	[RequireComponent(typeof(Outline))]
 	public class OutlineBinder : UIBinder<Outline>
 	{
-		[SerializeField] private string _effectColorParameterName;
-		[SerializeField] private string _effectDistanceParameterName;
+		[BinderType(typeof(Color))] [SerializeField] private string _effectColorParameterName;
+		[BinderType(typeof(Vector2))] [SerializeField] private string _effectDistanceParameterName;
 
 		protected override void Awake()
 		{

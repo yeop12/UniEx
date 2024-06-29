@@ -1,61 +1,32 @@
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using UniRx;
 using UnityEngine;
 
 namespace UniEx.UI
 {
 	[RequireComponent(typeof(Control))]
-	public sealed class ControlBinder : MonoBehaviour
+	public sealed class ControlBinder : UIBinder<Control>
 	{
-		[SerializeField] private UIElement _uiElement;
-		[SerializeField] private string _parameterName;
+		[BinderType(typeof(IObservable<object>), false)] [SerializeField] private string _parameterName;
 
-		private Control _control;
-		private PropertyInfo _controlProperty;
-		private readonly List<IDisposable> _observers = new();
-
-		private void Awake()
+		protected override void Awake() 
 		{
-			_control = GetComponent<Control>();
-			if (_uiElement is null) 
-			{
-				Debug.LogError($"{name} does not registered {nameof(_uiElement)}.");
-				return;
-			}
-
-			var propertyInfo = _uiElement.GetType().GetProperty(_parameterName);
-			if (propertyInfo is null)
-			{
-				Debug.LogError($"{_uiElement.name} does not contain '{_parameterName}' variable.");
-				return;
-			}
-
-			_controlProperty = propertyInfo;
-			_uiElement.OnBind += OnBind;
-			_uiElement.OnUnbind += OnUnbind;
+			base.Awake();
+			AddParameter(_parameterName, OnBindModel);
 		}
-
-		private void OnBind()
+		
+		private void OnBindModel(object value, string parameterName)
 		{
-			var controlInfo = _controlProperty.GetValue(_uiElement);
-			switch (controlInfo)
+			switch (value)
 			{
 				case IObservable<object> observable:
-					_observers.Add(observable.Subscribe(_control.SetModel));
+					AddObserver(observable.Subscribe(UIComponent.SetModel));
 					break;
 
 				default:
-					Debug.LogError($"Parameter's type must be '{typeof(IObservable<object>).Name}'.(UIElement name : {_uiElement.name}, Name : {name}, Parameter name : {_parameterName})");
+					Debug.LogError($"Parameter's type must be '{typeof(IObservable<object>).Name}'.(Object name : {name}, Parameter name : {parameterName})");
 					break;
 			}
-		}
-
-		private void OnUnbind()
-		{
-			_observers.ForEach(x => x.Dispose());
-			_observers.Clear();
 		}
 	}
 }

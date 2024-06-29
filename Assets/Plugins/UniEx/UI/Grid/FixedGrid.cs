@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,8 +22,8 @@ namespace UniEx.UI
 			_parent = transform;
 		}
 
-		public void Init<T>(IEnumerable<T> infos)
-		{
+		public void Init(IEnumerable infos)
+		{ 
 			_models = infos.Cast<object>().ToList();
 			var needCount = _models.Count - _gridItems.Count;
 			if (needCount > 0)

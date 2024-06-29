@@ -5,8 +5,8 @@ namespace UniEx.UI
 	[RequireComponent(typeof(TabGroup))]
 	public class TabGroupBinder : UIBinder<TabGroup>
 	{
-		[SerializeField] private string _allowSwitchOffParameterName;
-		[SerializeField] private string _selectedIndexParameterName;
+		[BinderType(typeof(bool))] [SerializeField] private string _allowSwitchOffParameterName;
+		[BinderType(typeof(int))] [SerializeField] private string _selectedIndexParameterName;
 
 		protected override void Awake()
 		{

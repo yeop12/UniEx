@@ -4,16 +4,18 @@ using UnityEngine;
 namespace UniEx.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class TextBinder : UIBinder<TextMeshProUGUI>
+	public class TextBinder : MaskableGraphicBinder<TextMeshProUGUI>
 	{
-		[SerializeField] private string _textParameterName;
-		[SerializeField] private string _colorParameterName;
+		[BinderType(typeof(string))] [SerializeField] private string _textParameterName;
+		[BinderType(typeof(float))] [SerializeField] private string _fontSizeParameterName;
+		[BinderType(typeof(FontStyles))] [SerializeField] private string _fontStyleParameterName;
 
 		protected override void Awake()
 		{
 			base.Awake();
 			AddParameter<string>(_textParameterName, x => UIComponent.text = x);
-			AddParameter<Color>(_colorParameterName, x => UIComponent.color = x);
+			AddParameter<float>(_fontSizeParameterName, x => UIComponent.fontSize = x);
+			AddParameter<FontStyles>(_fontStyleParameterName, x => UIComponent.fontStyle = x);
 		}
 	}
 }
