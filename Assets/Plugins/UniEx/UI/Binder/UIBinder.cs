@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UniRx;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace UniEx.UI
 
 		private readonly List<IDisposable> _observers = new();
 		protected TUIComponent UIComponent { get; private set; }
+		protected UIElement UIElement => _uiElement;
 
 		protected virtual void Awake()
 		{
@@ -33,29 +35,35 @@ namespace UniEx.UI
 			return GetComponent<TUIComponent>();
 		}
 
-		protected void AddParameter<T>(string parameterName, Action<T> action)
+		protected void AddGetterParameter<T>(string parameterName, Action<T> action)
 		{
-			var value = FindValue(parameterName);
-			if (value is null)
+			_uiElement.OnBind += () =>
 			{
-				return;
-			}
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
 
-			_uiElement.OnBind += () => OnBind(value, parameterName, action);
+				OnBind(value, parameterName, action);
+			};
 		}
 
-		protected void AddParameter(string parameterName, Action<object, string> binder)
+		protected void AddGetterParameter(string parameterName, Action<object, string> binder)
 		{
-			var value = FindValue(parameterName);
-			if (value is null)
-			{
-				return;
-			}
 
-			_uiElement.OnBind += () => binder?.Invoke(value, parameterName);
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+				binder?.Invoke(value, parameterName);
+			};
 		}
 
-		private object FindValue(string parameterName )
+		protected object FindValue(string parameterName)
 		{
 			if (string.IsNullOrWhiteSpace(parameterName))
 			{
@@ -73,7 +81,7 @@ namespace UniEx.UI
 
 			foreach (var parameter in parameters)
 			{
-				var propertyInfo = value.GetType().GetProperty(parameter);
+				var propertyInfo = value.GetType().GetProperty(parameter, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 				if (propertyInfo is null)
 				{
 					Debug.LogError($"{_uiElement.name} does not contain '{parameter}' variable.(Object name : {name})");

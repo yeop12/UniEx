@@ -8,13 +8,13 @@ namespace UniEx.UI
 	[RequireComponent(typeof(FixedGrid))]
 	public class GridBinder : UIBinder<FixedGrid>
 	{
-		[BinderType(typeof(IEnumerable), false)] 
+		[GetterBinderType(typeof(IEnumerable), false)] 
 		[SerializeField] private string _parameterName;
 
 		protected override void Awake()
 		{
 			base.Awake();
-			AddParameter(_parameterName, OnBindModel);
+			AddGetterParameter(_parameterName, OnBindModel);
 		}
 
 		private void OnBindModel(object value, string parameterName)

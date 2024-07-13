@@ -7,12 +7,12 @@ namespace UniEx.UI
 	[RequireComponent(typeof(Control))]
 	public sealed class ControlBinder : UIBinder<Control>
 	{
-		[BinderType(typeof(IObservable<object>), false)] [SerializeField] private string _parameterName;
+		[GetterBinderType(typeof(IObservable<object>), false)] [SerializeField] private string _parameterName;
 
 		protected override void Awake() 
 		{
 			base.Awake();
-			AddParameter(_parameterName, OnBindModel);
+			AddGetterParameter(_parameterName, OnBindModel);
 		}
 		
 		private void OnBindModel(object value, string parameterName)

@@ -1,6 +1,6 @@
 namespace UniEx.UI
 {
-	public abstract class ControlItem : UIElement
+	public class ControlItem : UIElement
 	{
 		public object ModelObject { get; private set; }
 

@@ -43,7 +43,7 @@ namespace UniEx.UI
 					}
 					else if (_prefabs.TryGetValue(type, out prefab) is false)
 					{
-						if (Attribute.GetCustomAttribute(type, typeof(AddressableInfo)) is AddressableInfo addressableInfo)
+						if (Attribute.GetCustomAttribute(type, typeof(AddressableInfoAttribute)) is AddressableInfoAttribute addressableInfo)
 						{
 							var tcs = new UniTaskCompletionSource<MovedUIWindow>();
 							_loadingUIObjects[type] = tcs;
@@ -110,7 +110,7 @@ namespace UniEx.UI
 					}
 					else if (_prefabs.TryGetValue(type, out prefab) is false)
 					{
-						if (Attribute.GetCustomAttribute(type, typeof(AddressableInfo)) is AddressableInfo addressableInfo)
+						if (Attribute.GetCustomAttribute(type, typeof(AddressableInfoAttribute)) is AddressableInfoAttribute addressableInfo)
 						{
 							var tcs = new UniTaskCompletionSource<MovedUIWindow>();
 							_loadingUIObjects[type] = tcs;
@@ -180,7 +180,7 @@ namespace UniEx.UI
 					}
 					else if (_prefabs.TryGetValue(type, out prefab) is false)
 					{
-						if (Attribute.GetCustomAttribute(type, typeof(AddressableInfo)) is AddressableInfo addressableInfo)
+						if (Attribute.GetCustomAttribute(type, typeof(AddressableInfoAttribute)) is AddressableInfoAttribute addressableInfo)
 						{
 							var tcs = new UniTaskCompletionSource<MovedUIWindow>();
 							_loadingUIObjects[type] = tcs;

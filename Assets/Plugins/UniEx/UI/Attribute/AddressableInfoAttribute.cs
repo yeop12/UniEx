@@ -3,11 +3,11 @@ using System;
 namespace UniEx.UI
 {
 	[AttributeUsage(AttributeTargets.Class)]
-	public class AddressableInfo : Attribute
+	public class AddressableInfoAttribute : Attribute
 	{
 		public string Key { get; }
 
-		public AddressableInfo(string key)
+		public AddressableInfoAttribute(string key)
 		{
 			Key = key;
 		}

@@ -6,20 +6,22 @@ namespace UniEx.UI
 	[RequireComponent(typeof(Slider))]
 	public class SliderBinder : SelectableBinder<Slider>
 	{
-		[BinderType(typeof(float))] [SerializeField] private string _valueParameterName;
-		[BinderType(typeof(float))] [SerializeField] private string _valueWithoutNotifyParameterName;
-		[BinderType(typeof(float))] [SerializeField] private string _minValueParameterName;
-		[BinderType(typeof(float))] [SerializeField] private string _maxValueParameterName;
-		[BinderType(typeof(bool))] [SerializeField] private string _wholeNumbersParameterName;
+		[GetterBinderType(typeof(float))] [SerializeField] private string _valueParameterName;
+		[GetterBinderType(typeof(float))] [SerializeField] private string _valueWithoutNotifyParameterName;
+		[GetterBinderType(typeof(float))] [SerializeField] private string _minValueParameterName;
+		[GetterBinderType(typeof(float))] [SerializeField] private string _maxValueParameterName;
+		[GetterBinderType(typeof(bool))] [SerializeField] private string _wholeNumbersParameterName;
+		[SetterBinderType(typeof(float))][SerializeField] private string _onValueChangedParameterName;
 
 		protected override void Awake()
 		{
 			base.Awake();
-			AddParameter<float>(_valueParameterName, x => UIComponent.value = x);
-			AddParameter<float>(_valueWithoutNotifyParameterName, x => UIComponent.SetValueWithoutNotify(x));
-			AddParameter<float>(_minValueParameterName, x => UIComponent.minValue = x);
-			AddParameter<float>(_maxValueParameterName, x => UIComponent.maxValue = x);
-			AddParameter<bool>(_wholeNumbersParameterName, x => UIComponent.wholeNumbers = x);
+			AddSetterParameter(_onValueChangedParameterName, UIComponent.onValueChanged);
+			AddGetterParameter<bool>(_wholeNumbersParameterName, x => UIComponent.wholeNumbers = x);
+			AddGetterParameter<float>(_minValueParameterName, x => UIComponent.minValue = x);
+			AddGetterParameter<float>(_maxValueParameterName, x => UIComponent.maxValue = x);
+			AddGetterParameter<float>(_valueParameterName, x => UIComponent.value = x);
+			AddGetterParameter<float>(_valueWithoutNotifyParameterName, x => UIComponent.SetValueWithoutNotify(x));
 		}
 	}
 }

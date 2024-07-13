@@ -1,0 +1,19 @@
+{
+    "name": "UniEx.UniRx.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:20dbead4090a5df4791b80d441ae743f",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

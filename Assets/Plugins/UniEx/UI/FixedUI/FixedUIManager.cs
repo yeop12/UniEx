@@ -42,7 +42,7 @@ namespace UniEx.UI
 
 			try
 			{
-				if (Attribute.GetCustomAttribute(type, typeof(AddressableInfo)) is AddressableInfo addressableInfo)
+				if (Attribute.GetCustomAttribute(type, typeof(AddressableInfoAttribute)) is AddressableInfoAttribute addressableInfo)
 				{
 					var obj = await Addressables.LoadAssetAsync<GameObject>(addressableInfo.Key)
 						.WithCancellation(ct);
@@ -103,7 +103,7 @@ namespace UniEx.UI
 				}
 				else
 				{
-					if (Attribute.GetCustomAttribute(type, typeof(AddressableInfo)) is AddressableInfo addressableInfo)
+					if (Attribute.GetCustomAttribute(type, typeof(AddressableInfoAttribute)) is AddressableInfoAttribute addressableInfo)
 					{
 						var obj = await Addressables.LoadAssetAsync<GameObject>(addressableInfo.Key)
 							.WithCancellation(cts.Token);
@@ -169,7 +169,7 @@ namespace UniEx.UI
 				}
 				else
 				{
-					if (Attribute.GetCustomAttribute(type, typeof(AddressableInfo)) is AddressableInfo addressableInfo)
+					if (Attribute.GetCustomAttribute(type, typeof(AddressableInfoAttribute)) is AddressableInfoAttribute addressableInfo)
 					{
 						var obj = Addressables.LoadAssetAsync<GameObject>(addressableInfo.Key).WaitForCompletion();
 						var uiComponent = obj.GetComponent<T>();

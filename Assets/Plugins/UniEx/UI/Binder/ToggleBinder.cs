@@ -6,14 +6,16 @@ namespace UniEx.UI
 	[RequireComponent(typeof(Toggle))]
 	public class ToggleBinder : SelectableBinder<Toggle>
 	{
-		[BinderType(typeof(bool))] [SerializeField] private string _isOnParameterName;
-		[BinderType(typeof(bool))] [SerializeField] private string _isOnWithoutNotifyParameterName;
+		[GetterBinderType(typeof(bool))] [SerializeField] private string _isOnParameterName;
+		[GetterBinderType(typeof(bool))] [SerializeField] private string _isOnWithoutNotifyParameterName;
+		[SetterBinderType(typeof(bool))][SerializeField] private string _onValueChangedParameterName;
 
 		protected override void Awake()
 		{
 			base.Awake();
-			AddParameter<bool>(_isOnParameterName, x => UIComponent.isOn = x);
-			AddParameter<bool>(_isOnWithoutNotifyParameterName, x => UIComponent.SetIsOnWithoutNotify(x));
+			AddSetterParameter(_onValueChangedParameterName, UIComponent.onValueChanged);
+			AddGetterParameter<bool>(_isOnParameterName, x => UIComponent.isOn = x);
+			AddGetterParameter<bool>(_isOnWithoutNotifyParameterName, x => UIComponent.SetIsOnWithoutNotify(x));
 		}
 	}
 }
