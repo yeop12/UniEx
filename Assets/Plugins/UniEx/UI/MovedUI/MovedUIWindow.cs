@@ -43,6 +43,7 @@ namespace UniEx.UI
 				return;
 			}
 
+			InvokeUnbind();
 			gameObject.SetActive(false);
 			IsOpened = false;
 			OnClosed?.Invoke();

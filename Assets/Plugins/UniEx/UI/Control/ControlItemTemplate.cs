@@ -9,11 +9,17 @@ namespace UniEx.UI
 			base.OnInit(modelObject);
 			Model = (T)modelObject;
 			OnInit(Model);
+			InvokeUnbind();
 			InvokeBind();
 		}
 		 
 		protected virtual void OnInit(T model)
 		{
+		}
+
+		protected virtual void OnDisable() 
+		{
+			InvokeUnbind();
 		}
 	}
 }
