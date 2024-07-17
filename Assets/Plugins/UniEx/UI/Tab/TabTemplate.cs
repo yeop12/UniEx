@@ -1,10 +1,6 @@
-using UnityEngine;
-using UnityEngine.UI;
-
 namespace UniEx.UI
 {
-	[RequireComponent(typeof(Toggle))]
-	public class TabTemplate<T> : Tab
+	public abstract class TabTemplate<T> : Tab
 	{
 		public T Model { get; private set; }
 

@@ -12,6 +12,6 @@ namespace UniEx.UI
 			_type = type;
 		}
 
-		public override bool IsTargetType(Type type) => _type == type;
+		public override bool IsTargetType(Type type) => _type.IsAssignableFrom(type);
 	}
 }

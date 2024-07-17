@@ -287,4 +287,35 @@ public class SampleModel : MonoBehaviour
 	[Header("Value")]
 	[SerializeField] private List<SampleGridModel> _gridModels;
 	public IReadOnlyList<SampleGridModel> GridModels => _gridModels;
+
+
+	[Header("--------------------------------------------------------------------------------------------")]
+	[Header("[ Tab ]")]
+	[Header("Value")]
+	[SerializeField] private SampleTabFirstModel _tabFirstModel;
+	[SerializeField] private SampleTabSecondModel _tabSecondModel;
+	[SerializeField] private SampleTabKind _tabKind;
+	public IEnumerable<(Enum, object)> TabGroupTabInfos => new List<(Enum, object)>()
+		{ (SampleTabKind.First, _tabFirstModel), (SampleTabKind.Second, _tabSecondModel) };
+	public SampleTabKind TabGroupSelectedKind
+	{
+		get => _tabKind;
+		set => _tabKind = value;
+	}
+
+	[Header("Reactive")]
+	[SerializeField] private SampleTabFirstModel _tabReactiveFirstModel;
+	[SerializeField] private SampleTabSecondModel _tabReactiveSecondModel;
+	[SerializeField] private SampleTabKindReactiveProperty _tabReactiveKind;
+	public IEnumerable<(Enum, object)> TabGroupReactiveTabInfos => new List<(Enum, object)>()
+		{ (SampleTabKind.First, _tabReactiveFirstModel), (SampleTabKind.Second, _tabReactiveSecondModel) };
+	public IObservable<Enum> TabGroupReactiveSelectedKind => _tabReactiveKind.Select(x => (Enum)x);
+	public void SetTabGroupReactiveSelectedKind(Enum value)
+	{
+		if (value is null)
+		{
+			return;
+		}
+		_tabReactiveKind.Value = (SampleTabKind)value;
+	}
 }

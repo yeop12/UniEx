@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UniEx.UI
@@ -5,14 +7,14 @@ namespace UniEx.UI
 	[RequireComponent(typeof(TabGroup))]
 	public class TabGroupBinder : UIBinder<TabGroup>
 	{
-		[GetterBinderType(typeof(bool))] [SerializeField] private string _allowSwitchOffParameterName;
-		[GetterBinderType(typeof(int))] [SerializeField] private string _selectedIndexParameterName;
+		[GetterBinderType(typeof(IEnumerable<(Enum, object)>))][SerializeField] private string _tabInfosParameterName;
+		[GetterBinderType(typeof(Enum))] [SerializeField] private string _selectedKindParameterName;
 
 		protected override void Awake()
 		{
 			base.Awake();
-			AddGetterParameter<bool>(_allowSwitchOffParameterName, x => UIComponent.allowSwitchOff = x);
-			AddGetterParameter<int>(_selectedIndexParameterName, x => UIComponent.SelectedIndex = x);
+			AddGetterParameter<IEnumerable<(Enum, object)>>(_tabInfosParameterName, x => UIComponent.TabInfos = x);
+			AddGetterParameter<Enum>(_selectedKindParameterName, x => UIComponent.SelectedKind = x);
 		}
 	}
 }
