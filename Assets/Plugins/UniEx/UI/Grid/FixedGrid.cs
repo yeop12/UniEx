@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace UniEx.UI
@@ -150,6 +151,7 @@ namespace UniEx.UI
 		public Coroutine Scroll(Direction direction, float time = 0.5f, float offset = 0.0f)
 		{
 			var rectTransform = GetComponent<RectTransform>();
+			LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
 
 			var startPosition = rectTransform.anchoredPosition;
 			var parentRect = transform.parent.GetComponent<RectTransform>().rect;
