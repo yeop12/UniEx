@@ -146,5 +146,34 @@ namespace UniEx.UI
 			_models.Clear();
 			_gridItems.ForEach(x => x.gameObject.SetActive(false));
 		}
+
+		public Coroutine Scroll(Direction direction, float time = 0.5f, float offset = 0.0f)
+		{
+			var rectTransform = GetComponent<RectTransform>();
+
+			var startPosition = rectTransform.anchoredPosition;
+			var parentRect = transform.parent.GetComponent<RectTransform>().rect;
+			var endPosition = direction switch
+			{
+				Direction.Up => new Vector2(startPosition.x, -offset),
+				Direction.Down => new Vector2(startPosition.x, Mathf.Max(0, rectTransform.rect.height - parentRect.height + offset)),
+				Direction.Right => new Vector2(Mathf.Min(0, parentRect.width - rectTransform.rect.width) - offset, startPosition.y),
+				Direction.Left => new Vector2(offset, startPosition.y),
+				_ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+			};
+
+			IEnumerator UpdateScroll()
+			{
+				for (var t = 0.0f; t < time; t += Time.deltaTime)
+				{
+					rectTransform.anchoredPosition = Vector2.Lerp(startPosition, endPosition, t / time);
+					yield return null;
+				}
+
+				rectTransform.anchoredPosition = endPosition;
+			}
+
+			return StartCoroutine(UpdateScroll());
+		}
 	}
 }

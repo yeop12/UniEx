@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UniRx;
 using UnityEngine;
@@ -11,10 +10,14 @@ namespace UniEx.UI
 		[GetterBinderType(typeof(IEnumerable), false)] 
 		[SerializeField] private string _parameterName;
 
+		[GetterBinderType(typeof(ActionWrapper<Direction, float, float>), false)]
+		[SerializeField] private string _onScrollParameterName;
+
 		protected override void Awake()
 		{
 			base.Awake();
 			AddGetterParameter(_parameterName, OnBindModel);
+			AddFunctionParameter<Direction, float, float>(_onScrollParameterName, OnScroll);
 		}
 
 		private void OnBindModel(object value, string parameterName)
@@ -51,6 +54,11 @@ namespace UniEx.UI
 		private void OnResetModels(Unit unit)
 		{
 			UIComponent.Clear();
+		}
+
+		private void OnScroll(Direction direction, float time, float offset)
+		{
+			UIComponent.Scroll(direction, time, offset);
 		}
 	}
 }

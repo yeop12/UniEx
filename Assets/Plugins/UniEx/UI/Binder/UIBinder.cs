@@ -52,7 +52,6 @@ namespace UniEx.UI
 
 		protected void AddGetterParameter(string parameterName, Action<object, string> binder)
 		{
-
 			_uiElement.OnBind += () =>
 			{
 				var value = FindValue(parameterName);
@@ -61,6 +60,198 @@ namespace UniEx.UI
 					return;
 				}
 				binder?.Invoke(value, parameterName);
+			};
+		}
+
+		protected void AddFunctionParameter(string parameterName, Action eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T>(string parameterName, Action<T> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T1, T2>(string parameterName, Action<T1, T2> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T1, T2> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T1, T2>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T1, T2, T3>(string parameterName, Action<T1, T2, T3> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T1, T2, T3> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T1, T2, T3>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T1, T2, T3, T4>(string parameterName, Action<T1, T2, T3, T4> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T1, T2, T3, T4> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T1, T2, T3, T4>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T1, T2, T3, T4, T5>(string parameterName, Action<T1, T2, T3, T4, T5> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T1, T2, T3, T4, T5> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T1, T2, T3, T4, T5>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T1, T2, T3, T4, T5, T6>(string parameterName, Action<T1, T2, T3, T4, T5, T6> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T1, T2, T3, T4, T5, T6> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T1, T2, T3, T4, T5, T6>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
+			};
+		}
+		
+		protected void AddFunctionParameter<T1, T2, T3, T4, T5, T6, T7>(string parameterName, Action<T1, T2, T3, T4, T5, T6, T7> eventFunc)
+		{
+			_uiElement.OnBind += () =>
+			{
+				var value = FindValue(parameterName);
+				if (value is null)
+				{
+					return;
+				}
+
+				if (value is not ActionWrapper<T1, T2, T3, T4, T5, T6, T7> invokeFunc)
+				{
+					Debug.LogError($"Parameter's type must be '{nameof(Action<T1, T2, T3, T4, T5, T6, T7>)}'.(Object name : {name}, Parameter name : {parameterName})");
+					return;
+				}
+
+				invokeFunc.AddEvent(eventFunc);
+				AddObserver(new DisposableAction(() =>
+				{
+					invokeFunc.RemoveEvent(eventFunc);
+				}));
 			};
 		}
 
