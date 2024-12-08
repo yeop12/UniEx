@@ -10,9 +10,15 @@ namespace UniEx.UI
 			Model = (T)modelObject;
 			OnOpen(Model);
 			InvokeBind();
+			OnPostBind();
 		}
 
 		protected virtual void OnOpen(T model)
+		{
+
+		}
+
+		protected virtual void OnPostBind()
 		{
 
 		}
